@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import teslaService from "./tesla-battery.service";
 import {TeslaCar} from "./components/TeslaCar";
-
+import {TeslaCounterComponent} from './components/TeslaCounterComponent';
 export class TeslaBattery extends Component {
   state = {
     title: 'Ranger Per Charge',
@@ -53,9 +53,9 @@ export class TeslaBattery extends Component {
     }
   }
   incrementTemperature = () => {
-    const {speed} = this.state
-    if(speed.value > speed.min){
-      this.setState({speed: {...this.state.speed, value: speed.value + speed.step }})
+    const {temperature} = this.state
+    if(temperature.value > temperature.min){
+      this.setState({temperature: {...this.state.temperature, value: temperature.value + temperature.step }})
     }
   }
 
@@ -109,8 +109,7 @@ export class TeslaBattery extends Component {
         <h1>{title}</h1>
 
         {/* TeslaCarComponent */}
-        <TeslaCar wheels={wheels}
-                   speed="speed.value"/>
+        <TeslaCar wheels={wheels} speed={speed.value}/>
         {/* End TeslaCarComponent */}
 
         {/* TeslaStatsComponent */}
@@ -130,7 +129,7 @@ export class TeslaBattery extends Component {
               <div className={`tesla-stats-icon tesla-stats-icon--${stat.model}`} />
     
                 <p>{stat.miles}
-                  <span>MI</span>
+                  <span>{stat.model.toLowerCase}</span>
                 </p>
               </li>
             )}
@@ -140,62 +139,29 @@ export class TeslaBattery extends Component {
 
         <div className="tesla-controls cf">
           {/* TeslaCounterComponent for speed */}
-          <div className="tesla-counter">
-            <p className="tesla-counter__title">Speed</p>
-            <div className="tesla-counter__container cf">
-              <div className="tesla-counter__item" tabIndex="0"
-                   onBlur={this.onBlurSpeed}
-                   onFocus={this.onFocusSpeed}>
-                <p className="tesla-counter__number">
-                  {speed.value}
-                  <span>mph</span>
-                </p>
-
-                <div className="tesla-counter__controls"
-                     tabIndex="-1">
-                  <button tabIndex="-1"
-                          type="button"
-                          onClick={this.incrementSpeed}
-                          
-                          disabled={speed.value === speed.max}/>
-                  <button tabIndex="-1"
-                          type="button"
-                          onClick={this.decrementSpeed}
-                          disabled={speed.value === speed.min}/>
-                </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <TeslaCounterComponent 
+              title="Speed"
+              onBlurItem={() => this.onBlurTemperature}
+              onFocusItem={this.onFocusTemperature}
+              counterNumber={temperature.value}
+              onClickIncrease={this.incrementTemperature}
+              disabledIncrease={temperature.value === temperature.max}
+              onClickDecrease={this.decrementTemperature}
+              disabledDecrease={temperature.value === temperature.min}
+            />
           {/* End TeslaCounterComponent for speed */}
-          <div className="tesla-climate cf">
 
             {/* TeslaCounterComponent for outside temperature */}
-            <div className="tesla-counter">
-              <p className="tesla-counter__title">Outside Temperature</p>
-              <div className="tesla-counter__container cf">
-                <div className="tesla-counter__item"
-                     tabIndex="0"
-                     onBlur={() => this.onBlurTemperature}
-                     onFocus={this.onFocusTemperature}>
-                  <p className="tesla-counter__number">
-                    {temperature.value}
-                    <span>°</span>
-                  </p>
-                  <div className="tesla-counter__controls"
-                       tabIndex="-1">
-                    <button tabIndex="-1"
-                            type="button"
-                            onClick={this.incrementTemperature}
-                            disabled={temperature.value === temperature.max}/>
-                    <button tabIndex="-1"
-                            type="button"
-                            onClick={this.decrementTemperature}
-                            disabled={temperature.value === temperature.min}/>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <TeslaCounterComponent 
+              title="Outside Temperature"
+              onBlurItem={this.onBlurSpeed}
+              onFocusItem={this.onFocusSpeed}
+              counterNumber={speed.value}
+              onClickIncrease={this.incrementSpeed}
+              disabledIncrease={speed.value === speed.max}
+              onClickDecrease={this.decrementSpeed}
+              disabledDecrease={speed.value === speed.min}
+            />
             {/* End TeslaCounterComponent for outside temperature */}
 
             {/* TeslaClimateComponent */}
