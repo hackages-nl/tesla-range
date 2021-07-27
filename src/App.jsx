@@ -8,7 +8,7 @@ export class App extends Component {
     return (
       <div>
         <header className="header">
-          <img src="logo" />
+          <img src={logo} />
         </header>
         <div className="wrapper">
           <TeslaBattery />
