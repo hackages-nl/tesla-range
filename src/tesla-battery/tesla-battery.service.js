@@ -1071,7 +1071,7 @@ export default {
           },
         },
       },
-      P100D: {
+      'P100D': {
         19: {
           on: {
             speed: {
