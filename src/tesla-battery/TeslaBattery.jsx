@@ -150,8 +150,7 @@ export class TeslaBattery extends Component {
               disabledDecrease={temperature.value === temperature.min}
             />
           {/* End TeslaCounterComponent for speed */}
-
-            {/* TeslaCounterComponent for outside temperature */}
+          {/* TeslaCounterComponent for outside temperature */}
             <TeslaCounterComponent 
               title="Outside Temperature"
               onBlurItem={this.onBlurSpeed}
@@ -162,8 +161,7 @@ export class TeslaBattery extends Component {
               onClickDecrease={this.decrementSpeed}
               disabledDecrease={speed.value === speed.min}
             />
-            {/* End TeslaCounterComponent for outside temperature */}
-
+          {/* End TeslaCounterComponent for outside temperature */}
             {/* TeslaClimateComponent */}
             <div>
               <label className={`tesla-climate__item ${!(temperature.value > 10) ? 'tesla-heat ' : ' '}${climate.value ? 'tesla-climate__item--active ': ' '}${climate.focused === climate.value ? 'tesla-climate__item--focused': ''}`}>
@@ -179,7 +177,6 @@ export class TeslaBattery extends Component {
             </div>
             {/* End TeslaClimateComponent */}
           </div>
-
           {/* TeslaWheelsComponent */}
           <div className="tesla-wheels">
             <p className="tesla-wheels__title">Wheels</p>
